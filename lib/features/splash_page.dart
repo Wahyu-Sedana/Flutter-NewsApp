@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:news_app/cores/utils/colors.dart';
 import 'package:news_app/cores/utils/strings.dart';
 import 'package:news_app/cores/utils/style.dart';
-import 'package:news_app/features/home/presentation/page/home_page.dart';
+import 'package:news_app/features/dashboard/presentation/page/dashboard_page.dart';
 
 class SplashPage extends StatefulWidget {
   static const String routeName = "/splash";
@@ -19,7 +19,7 @@ class _SplashPageState extends State<SplashPage> {
   void initState() {
     super.initState();
     Timer(const Duration(seconds: 3), () {
-      Navigator.pushReplacementNamed(context, HomePage.routeName);
+      Navigator.pushReplacementNamed(context, DashboardPage.routeName);
     });
   }
 
