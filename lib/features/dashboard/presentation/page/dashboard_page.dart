@@ -33,7 +33,7 @@ class DashboardPage extends StatelessWidget {
                 },
               ),
               IconButton(
-                icon: const Icon(Icons.history),
+                icon: const Icon(Icons.bookmark_border),
                 color: provider.currentIndex == 2 ? appColor : Colors.grey,
                 onPressed: () {
                   provider.changePage(2);

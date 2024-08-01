@@ -5,8 +5,10 @@ import 'package:news_app/features/dashboard/presentation/page/dashboard_page.dar
 import 'package:news_app/features/dashboard/presentation/provider/dashboard_provider.dart';
 import 'package:news_app/features/history/presentation/page/history_page.dart';
 import 'package:news_app/features/home/presentation/page/home_page.dart';
+import 'package:news_app/features/home/presentation/provider/home_provider.dart';
 import 'package:news_app/features/splash_page.dart';
 import 'package:provider/provider.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,23 +26,27 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider<DashboardProvider>(create: (_) => locator<DashboardProvider>())
-      ],
-      builder: (context, _) {
-        return MaterialApp(
-          navigatorKey: locator<GlobalKey<NavigatorState>>(),
-          debugShowCheckedModeBanner: false,
-          initialRoute: '/splash',
-          routes: {
-            '/splash': (context) => const SplashPage(),
-            '/dashboard': (context) => const DashboardPage(),
-            '/home': (context) => const HomePage(),
-            '/history': (context) => const HistoryPage()
-          },
-        );
-      },
-    );
+    return ResponsiveSizer(
+        maxMobileWidth: 500,
+        maxTabletWidth: 1500,
+        builder: (_, orientation, screenType) => MultiProvider(
+              providers: [
+                ChangeNotifierProvider<DashboardProvider>(
+                    create: (_) => locator<DashboardProvider>()),
+                ChangeNotifierProvider<HomeProvider>(create: (_) => locator<HomeProvider>())
+              ],
+              builder: (context, _) {
+                return MaterialApp(
+                  debugShowCheckedModeBanner: false,
+                  initialRoute: '/splash',
+                  routes: {
+                    '/splash': (context) => const SplashPage(),
+                    '/dashboard': (context) => const DashboardPage(),
+                    '/home': (context) => const HomePage(),
+                    '/history': (context) => const HistoryPage()
+                  },
+                );
+              },
+            ));
   }
 }
