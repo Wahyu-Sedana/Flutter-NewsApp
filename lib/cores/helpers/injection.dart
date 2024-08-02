@@ -8,6 +8,7 @@ import 'package:news_app/features/home/data/datasource/home_datasource.dart';
 import 'package:news_app/features/home/data/repository/home_repository.dart';
 import 'package:news_app/features/home/domain/usecase/home_usecase.dart';
 import 'package:news_app/features/home/presentation/provider/home_provider.dart';
+import 'package:news_app/features/search/presentation/provider/search_provider.dart';
 
 final locator = GetIt.instance;
 
@@ -32,4 +33,5 @@ Future<void> locatorInit() async {
   // provider
   locator.registerFactory<DashboardProvider>(() => DashboardProvider());
   locator.registerFactory<HomeProvider>(() => HomeProvider(homeUseCase: locator<HomeUseCase>()));
+  locator.registerFactory<SearchProvider>(() => SearchProvider());
 }

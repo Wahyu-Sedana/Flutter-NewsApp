@@ -82,8 +82,15 @@ class HomePage extends StatelessWidget {
                                                   const SizedBox(
                                                     height: 20,
                                                   ),
-                                                  Text(formatDate(
-                                                      _data[itemIndex].isoDate.toString()))
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.spaceBetween,
+                                                    children: [
+                                                      Text(formatDate(
+                                                          _data[itemIndex].isoDate.toString())),
+                                                      const Icon(Icons.bookmark_add_outlined)
+                                                    ],
+                                                  )
                                                 ],
                                               ),
                                             )
@@ -163,6 +170,7 @@ class HomePage extends StatelessWidget {
                                           ),
                                           subtitle:
                                               Text(formatDate(_data[index].isoDate.toString())),
+                                          trailing: const Icon(Icons.bookmark_add_outlined),
                                         ),
                                       ),
                                     );

@@ -6,6 +6,7 @@ import 'package:news_app/features/dashboard/presentation/provider/dashboard_prov
 import 'package:news_app/features/history/presentation/page/history_page.dart';
 import 'package:news_app/features/home/presentation/page/home_page.dart';
 import 'package:news_app/features/home/presentation/provider/home_provider.dart';
+import 'package:news_app/features/search/presentation/provider/search_provider.dart';
 import 'package:news_app/features/splash_page.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -33,7 +34,8 @@ class MyApp extends StatelessWidget {
               providers: [
                 ChangeNotifierProvider<DashboardProvider>(
                     create: (_) => locator<DashboardProvider>()),
-                ChangeNotifierProvider<HomeProvider>(create: (_) => locator<HomeProvider>())
+                ChangeNotifierProvider<HomeProvider>(create: (_) => locator<HomeProvider>()),
+                ChangeNotifierProvider<SearchProvider>(create: (_) => locator<SearchProvider>())
               ],
               builder: (context, _) {
                 return MaterialApp(
