@@ -4,6 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:news_app/cores/settings/dio_client.dart';
 import 'package:news_app/cores/settings/network_info.dart';
 import 'package:news_app/features/dashboard/presentation/provider/dashboard_provider.dart';
+import 'package:news_app/features/history/presentation/providers/history_provider.dart';
 import 'package:news_app/features/home/data/datasource/home_datasource.dart';
 import 'package:news_app/features/home/data/repository/home_repository.dart';
 import 'package:news_app/features/home/domain/usecase/home_usecase.dart';
@@ -34,4 +35,5 @@ Future<void> locatorInit() async {
   locator.registerFactory<DashboardProvider>(() => DashboardProvider());
   locator.registerFactory<HomeProvider>(() => HomeProvider(homeUseCase: locator<HomeUseCase>()));
   locator.registerFactory<SearchProvider>(() => SearchProvider());
+  locator.registerFactory<HistoryProvider>(() => HistoryProvider());
 }

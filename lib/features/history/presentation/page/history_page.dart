@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:news_app/cores/utils/colors.dart';
-import 'package:news_app/features/home/presentation/provider/home_provider.dart';
-import 'package:news_app/features/search/presentation/provider/search_provider.dart';
+import 'package:news_app/features/history/presentation/providers/history_provider.dart';
 import 'package:provider/provider.dart';
 
 class HistoryPage extends StatelessWidget {
@@ -18,46 +16,45 @@ class HistoryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Consumer2<HomeProvider, SearchProvider>(builder: (_, provider, searchProvider, __) {
-          return Container(
-            padding: const EdgeInsets.all(15),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  "Find Your Saved News Right Now!",
-                  style: TextStyle(fontSize: 34, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                TextFormField(
-                  key: searchProvider.formKey,
-                  onChanged: (value) async {},
-                  decoration: const InputDecoration(
-                    labelStyle: TextStyle(color: appColor),
-                    labelText: 'Search for news',
-                    border: OutlineInputBorder(),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: appColor),
+        child: Consumer<HistoryProvider>(
+          builder: (_, bookmarkProvider, __) {
+            if (bookmarkProvider.bookmarks.isEmpty) {
+              return const Center(child: Text("No bookmarks available"));
+            } else {
+              return ListView.builder(
+                itemCount: bookmarkProvider.bookmarks.length,
+                itemBuilder: (context, index) {
+                  final bookmark = bookmarkProvider.bookmarks[index];
+                  return Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Card(
+                      child: ListTile(
+                        leading: Image.network(
+                          bookmark['image'],
+                          width: 100,
+                          height: 100,
+                          fit: BoxFit.cover,
+                        ),
+                        title: Text(
+                          bookmark['title'],
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        subtitle: Text(formatDate(bookmark['isoDate'])),
+                        trailing: IconButton(
+                          icon: const Icon(Icons.delete),
+                          onPressed: () {
+                            bookmarkProvider.removeBookmark(bookmark['id']);
+                          },
+                        ),
+                      ),
                     ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: appColor),
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                const Expanded(
-                  child: Center(
-                    child: Text('No Data Available'),
-                  ),
-                )
-              ],
-            ),
-          );
-        }),
+                  );
+                },
+              );
+            }
+          },
+        ),
       ),
     );
   }

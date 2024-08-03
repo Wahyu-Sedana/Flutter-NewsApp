@@ -4,6 +4,7 @@ import 'package:news_app/cores/helpers/injection.dart';
 import 'package:news_app/features/dashboard/presentation/page/dashboard_page.dart';
 import 'package:news_app/features/dashboard/presentation/provider/dashboard_provider.dart';
 import 'package:news_app/features/history/presentation/page/history_page.dart';
+import 'package:news_app/features/history/presentation/providers/history_provider.dart';
 import 'package:news_app/features/home/presentation/page/home_page.dart';
 import 'package:news_app/features/home/presentation/provider/home_provider.dart';
 import 'package:news_app/features/search/presentation/provider/search_provider.dart';
@@ -35,7 +36,8 @@ class MyApp extends StatelessWidget {
                 ChangeNotifierProvider<DashboardProvider>(
                     create: (_) => locator<DashboardProvider>()),
                 ChangeNotifierProvider<HomeProvider>(create: (_) => locator<HomeProvider>()),
-                ChangeNotifierProvider<SearchProvider>(create: (_) => locator<SearchProvider>())
+                ChangeNotifierProvider<SearchProvider>(create: (_) => locator<SearchProvider>()),
+                ChangeNotifierProvider<HistoryProvider>(create: (_) => locator<HistoryProvider>())
               ],
               builder: (context, _) {
                 return MaterialApp(
