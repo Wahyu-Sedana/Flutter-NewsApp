@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:news_app/cores/utils/colors.dart';
 import 'package:news_app/features/home/presentation/provider/home_provider.dart';
-import 'package:news_app/features/home/presentation/provider/state/home_state.dart';
 import 'package:news_app/features/home/presentation/widget/bottom_news_widget.dart';
-import 'package:news_app/features/home/presentation/widget/top_news_widget.dart';
 import 'package:news_app/features/search/presentation/provider/search_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -21,6 +18,7 @@ class SearchPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final searchProvider = context.read<SearchProvider>();
+    final homeProvider = context.read<HomeProvider>();
     return Scaffold(
       body: SafeArea(
           child: Container(
@@ -38,7 +36,9 @@ class SearchPage extends StatelessWidget {
             ),
             TextFormField(
               key: searchProvider.formKey,
-              onChanged: (value) async {},
+              onChanged: (value) async {
+                homeProvider.searchNews(value);
+              },
               decoration: const InputDecoration(
                 labelStyle: TextStyle(color: appColor),
                 labelText: 'Search for news',

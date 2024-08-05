@@ -19,6 +19,10 @@ class HomeProvider with ChangeNotifier {
   List<NewsData> _listNews = [];
   List<NewsData> _listNewsPolitics = [];
 
+  List<NewsData> _searchResults = [];
+
+  List<NewsData> get searchResults => _searchResults;
+
   set setListNews(List<NewsData> val) {
     final titles = val.map((e) => e.title).toSet();
     final List<NewsData> uniqueNews = [];
@@ -33,8 +37,15 @@ class HomeProvider with ChangeNotifier {
         description: selectedNews.firstWhere((i) => i.title == title).description,
       ));
     }
-
     _listNews = uniqueNews;
+    notifyListeners();
+  }
+
+  void searchNews(String query) {
+    _searchResults = _listNews.where((news) {
+      return news.title.toLowerCase().contains(query.toLowerCase()) ||
+          news.description.toLowerCase().contains(query.toLowerCase());
+    }).toList();
     notifyListeners();
   }
 
@@ -83,6 +94,7 @@ class HomeProvider with ChangeNotifier {
         return data;
       } else {
         _homeState = HomeEmpty();
+        // _searchResults = data;
         notifyListeners();
         return null;
       }
@@ -102,6 +114,7 @@ class HomeProvider with ChangeNotifier {
       if (data.isNotEmpty) {
         _homePoliticState = HomeLoaded(data: data);
         _listNewsPolitics = data;
+        _searchResults = data;
         notifyListeners();
         return data;
       } else {
